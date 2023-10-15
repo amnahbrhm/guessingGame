@@ -1,19 +1,23 @@
 import { Alert, View, StyleSheet, TextInput } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from 'react'
+import {Colors} from '../constants/colors'
 
-function StartGameScreen() {
+function StartGameScreen({onPickNumber}) {
   let [enteredNumber, setEnternedNumber] = useState("");
 
   function confirmClicked() {
-    if(enteredNumber < 1 || enteredNumber > 99 || !parseInt(enteredNumber)){
+    const number = parseInt(enteredNumber)
+    if(number < 1 || number > 99 || !number){
         Alert.alert('Error', 'Number must be between 1 and 99', [
             {
               text: 'Ok',
               onPress: () => setEnternedNumber(''),
             },
         ])
+        return
     }
+    onPickNumber(enteredNumber)
   }
   return (
     <View style={styles.continer}>
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     padding: 16,
     marginHorizontal: 16,
-    backgroundColor: "#d0ebf9",
+    backgroundColor: Colors.primary300,
     borderRadius: 16,
     elevation: 4,
     shadowColor: "black",
@@ -57,10 +61,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     borderBottomWidth: 2,
-    borderBottomColor: "#319dc4",
+    borderBottomColor: Colors.secondary300,
     paddingVertical: 8,
     height: 50,
-    color: "#319dc4",
+    color: Colors.secondary300,
     width: 50,
   },
 });
